@@ -80,7 +80,7 @@ var PUMPKIN_LIGHT = {
         PUMPKIN_LIGHT.client = client;
 
         PARTICLE_LISTENER.listen(function(id, ip) {
-            console.log("a core just announced itself: id:" + id + " ip address: " + rinfo.address);
+            console.log("a core just announced itself: id:" + id + " ip address: " + ip);
             PUMPKIN_LIGHT.target_ip = ip;
         });
 
