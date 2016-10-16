@@ -86,6 +86,11 @@ var PUMPKIN_LIGHT = {
 
     },
 
+    sendBuffer: function(msg) {
+        PUMPKIN_LIGHT.client.setBroadcast(true);
+        PUMPKIN_LIGHT.client.send(msg, 0, msg.length, PUMPKIN_LIGHT.light_port, PUMPKIN_LIGHT.target_ip);;
+    },
+
     sendCurrent: function() {
         if (PUMPKIN_LIGHT.powerOn) {
             var hue = PUMPKIN_LIGHT.hue / 360;
@@ -108,8 +113,7 @@ var PUMPKIN_LIGHT = {
         msg.writeUInt8(r, 1);
         msg.writeUInt8(g, 2);
         msg.writeUInt8(b, 3);
-        PUMPKIN_LIGHT.client.setBroadcast(true);
-        PUMPKIN_LIGHT.client.send(msg, 0, msg.length, PUMPKIN_LIGHT.light_port, PUMPKIN_LIGHT.target_ip); //"10.0.2.255");
+        PUMPKIN_LIGHT.sendBuffer(msg);
     },
 
     HSVtoRGB: function(h, s, v) {
@@ -156,7 +160,12 @@ var PUMPKIN_LIGHT = {
         PUMPKIN_LIGHT.sendCurrent()
     },
     identify: function() {
-        console.log("Identify the light!");
+        console.log("Identify the light");
+        var msg = new Buffer(1);
+        var t = "i".charCodeAt(0);
+        msg.writeUInt8(t, 0);
+        console.log('Writing to light: %d', t);
+        PUMPKIN_LIGHT.sendBuffer(msg);
     }
 };
 
