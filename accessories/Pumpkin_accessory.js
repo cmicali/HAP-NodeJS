@@ -162,9 +162,7 @@ var PUMPKIN_LIGHT = {
     identify: function() {
         console.log("Identify the light");
         var msg = new Buffer(1);
-        var t = "i".charCodeAt(0);
-        msg.writeUInt8(t, 0);
-        console.log('Writing to light: %d', t);
+        msg.writeUInt8("f".charCodeAt(0), 0);
         PUMPKIN_LIGHT.sendBuffer(msg);
     }
 };
